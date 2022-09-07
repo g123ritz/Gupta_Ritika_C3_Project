@@ -1,6 +1,4 @@
 package upgrad_restaurant_finder_project;
-//import jdk.vm.ci.meta.Local;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,27 +23,29 @@ public class Restaurant {
         if(user_time.isAfter(openingTime)&& user_time.isBefore(closingTime))
             k=true;
         return k;*/
-        LocalTime user_time=getCurrentTime();
-        return (user_time.isAfter(openingTime)&& user_time.isBefore(closingTime));
+        LocalTime user_time = getCurrentTime();
+        return (user_time.isAfter(openingTime) && user_time.isBefore(closingTime));
     }
 
-    public LocalTime getCurrentTime(){ return  LocalTime.now(); }
+    public LocalTime getCurrentTime() {
+        return LocalTime.now();
+    }
 
     public List<Item> getMenu() {
         return menu;
 
     }
 
-    private Item findItemByName(String itemName){
-        for(Item item: menu) {
-            if(item.getName().equals(itemName))
+    private Item findItemByName(String itemName) {
+        for (Item item : menu) {
+            if (item.getName().equals(itemName))
                 return item;
         }
         return null;
     }
 
     public void addToMenu(String name, int price) {
-        Item newItem = new Item(name,price);
+        Item newItem = new Item(name, price);
         menu.add(newItem);
     }
 
@@ -57,12 +57,13 @@ public class Restaurant {
 
         menu.remove(itemToBeRemoved);
     }
-    public void displayDetails(){
-        System.out.println("Restaurant:"+ name + "\n"
-                +"Location:"+ location + "\n"
-                +"Opening time:"+ openingTime +"\n"
-                +"Closing time:"+ closingTime +"\n"
-                +"Menu:"+"\n"+getMenu());
+
+    public void displayDetails() {
+        System.out.println("Restaurant:" + name + "\n"
+                + "Location:" + location + "\n"
+                + "Opening time:" + openingTime + "\n"
+                + "Closing time:" + closingTime + "\n"
+                + "Menu:" + "\n" + getMenu());
 
     }
 
@@ -70,6 +71,14 @@ public class Restaurant {
         return name;
     }
 
+    public int calculatingOrderValue(String... selectedItemName) {
+        int totalCalculatedCost = 0;
+        for (String selectedItemNames : selectedItemName) {
+          totalCalculatedCost+=findItemByName(selectedItemNames).getPrice();
+        }
+
+        return totalCalculatedCost;
+    }
 }
 
 
